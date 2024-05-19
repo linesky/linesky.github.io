@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculation Page</title>
+<style>
+  body {
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .input-group input {
+    padding: 10px;
+    font-size: 16px;
+    margin: 5px;
+    text-align: center;
+    width: 50px;
+  }
+  .buttons {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 0 10px;
+  }
+  #result {
+    padding: 20px;
+    background-color: white;
+    border: 1px solid black;
+  }
+</style>
+</head>
+<body>
+
+<div class="input-group">
+  <input type="number" id="inputX" value="1">
+  <input type="number" id="inputY" value="1">
+  <input type="number" id="inputZ" value="1">
+</div>
+
+<div class="buttons">
+  <button id="calculate2DButton">2D</button>
+  <button id="calculate3DButton">3D</button>
+</div>
+
+<div id="result">Result: </div>
+
+<script>
+  function updateResult(result) {
+    document.getElementById('result').textContent = `Result: ${result}`;
+  }
+
+  document.getElementById('calculate2DButton').addEventListener('click', function() {
+    const x = parseFloat(document.getElementById('inputX').value);
+    const y = parseFloat(document.getElementById('inputY').value);
+    const result = x * y;
+    updateResult(result);
+  });
+
+  document.getElementById('calculate3DButton').addEventListener('click', function() {
+    const x = parseFloat(document.getElementById('inputX').value);
+    const y = parseFloat(document.getElementById('inputY').value);
+    const z = parseFloat(document.getElementById('inputZ').value);
+    const result = x * y * z;
+    updateResult(result);
+  });
+</script>
+
+</body>
+</html>
+

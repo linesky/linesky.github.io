@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multiplication Report</title>
+<style>
+  body {
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  .controls {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 0 10px;
+  }
+  #reports {
+    padding: 20px;
+    background-color: white;
+    border: 1px solid black;
+  }
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <button id="incrementXButton">Increment X</button>
+  <button id="incrementYButton">Increment Y</button>
+</div>
+
+<div id="reports">x * y = 0</div>
+
+<script>
+  let x = 0;
+  let y = 0;
+
+  function updateReport() {
+    const reportDiv = document.getElementById('reports');
+    reportDiv.textContent = `x * y = ${x} * ${y} = ${x * y}`;
+  }
+
+  document.getElementById('incrementXButton').addEventListener('click', function() {
+    if (x < 12) {
+      x++;
+    } else {
+      x = 0;
+    }
+    updateReport();
+  });
+
+  document.getElementById('incrementYButton').addEventListener('click', function() {
+    if (y < 12) {
+      y++;
+    } else {
+      y = 0;
+    }
+    updateReport();
+  });
+
+  updateReport();
+</script>
+
+</body>
+</html>

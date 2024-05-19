@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSV to HTML Table</title>
+<style>
+  body {
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  textarea {
+    width: 500px;
+    height: 200px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 10px;
+  }
+</style>
+</head>
+<body>
+<input type="file" id="file-selector" >
+
+<textarea id="csvInput" placeholder="Paste CSV content here"></textarea>
+<button id="convertButton">Convert to HTML Table</button>
+<button id="saves">save</button>
+
+<textarea id="htmlOutput" placeholder="HTML Table output will appear here"></textarea>
+
+<script>
+  document.getElementById('convertButton').addEventListener('click', function() {
+    const csvInput = document.getElementById('csvInput').value.trim();
+    const rows = csvInput.split('\n');
+    let htmlOutput = '<table border="1">\n';
+
+    rows.forEach(row => {
+      const columns = row.split(',');
+      htmlOutput += '  <tr>\n';
+      columns.forEach(column => {
+        htmlOutput += `    <td>${column.trim()}</td>\n`;
+      });
+      htmlOutput += '  </tr>\n';
+    });
+
+    htmlOutput += '</table>';
+    document.getElementById('htmlOutput').value = htmlOutput;
+  });
+</script>
+<script>
+    codeInput = document.getElementById('csvInput');
+    const fileSelector = document.getElementById('file-selector');
+    fileSelector.addEventListener('change', (event) => {
+        const fileList = event.target.files[0];
+        
+      var reader = new FileReader();
+      reader.readAsText(fileList);
+    reader.onload =readerEvent => {
+        var values=readerEvent.target.result;
+        codeInput.value=values;
+    }
+     
+    });
+ 
+</script>
+<script>
+    const saveBtn = document.getElementById('saves');
+    
+    
+    saveBtn.addEventListener('click', function(){
+       let name =prompt("filename","new");
+       var tempLink = document.createElement("a");
+
+       var codeInput = document.getElementById("htmlOutput");
+       var outputs = "<html><head><title>table</title><style>body {\nbackground-color: yellow;\n}</style></head><body'>"+codeInput.value+"</body><html>";
+       var taBlob = new Blob([ outputs], {type: 'text/plain'});
+       tempLink.setAttribute('href', URL.createObjectURL(taBlob));
+    tempLink.setAttribute('download', `${name.toLowerCase()}.html`);
+    tempLink.click();
+
+    URL.revokeObjectURL(tempLink.href);
+});
+  </script>
+
+</body>
+</html>
+
