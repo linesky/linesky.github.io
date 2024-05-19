@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>x86 Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <input type="file" id="file-selector" >
+       
+        <textarea id="codeInput" placeholder="put you code here..."></textarea>
+       
+     
+        <button id="saves">save</button>
+
+        
+    </div>
+    <script src="script.js"></script>
+    <script>
+        codeInput = document.getElementById('codeInput');
+        const fileSelector = document.getElementById('file-selector');
+        fileSelector.addEventListener('change', (event) => {
+            const fileList = event.target.files[0];
+            
+          var reader = new FileReader();
+          reader.readAsText(fileList);
+        reader.onload =readerEvent => {
+            var values=readerEvent.target.result;
+            codeInput.value=values;
+        }
+         
+        });
+      </script>
+      <script>
+        const saveBtn = document.getElementById('saves');
+        
+        
+        saveBtn.addEventListener('click', function(){
+            let name =prompt("filename","new");
+            var tempLink = document.createElement("a");
+  
+            var codeInput = document.getElementById("codeInput");
+           
+           var taBlob = new Blob([codeInput.value], {type: 'text/plain'});
+           tempLink.setAttribute('href', URL.createObjectURL(taBlob));
+        tempLink.setAttribute('download', `${name.toLowerCase()}.txt`);
+        tempLink.click();
+  
+        URL.revokeObjectURL(tempLink.href);
+});
+      </script>
+</body>
+</html>
